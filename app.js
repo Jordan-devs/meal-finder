@@ -26,8 +26,6 @@ const searchMeal = async (e) => {
   let currentMeal = 0;
 
   const showMealInfo = (meals) => {
-    console.log(currentMeal);
-
     const { strMeal, strMealThumb, strInstructions } = meals[currentMeal];
     img.style.backgroundImage = `url(${strMealThumb})`;
     meal_name.textContent = strMeal;
@@ -70,7 +68,6 @@ const searchMeal = async (e) => {
 
       const { meals } = await response.json();
       error_container.classList.remove("active");
-      console.log(meals);
       return meals;
     } catch (error) {
       error_container.classList.add("active");
