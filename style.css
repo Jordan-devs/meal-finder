@@ -80,13 +80,13 @@ nav .search_container {
   transition: color 0.2s ease-in-out;
 }
 
-a {
+.nav-link a {
   color: black;
   text-decoration: none;
   transition: color 200ms ease-in-out;
 }
 
-.nav-link:hover {
+.nav-link a:hover {
   color: #ffa31a;
 }
 
@@ -150,6 +150,12 @@ a {
   border-bottom: 2px solid #eee;
   width: 100%;
   list-style-type: none;
+}
+
+.collapse_message a {
+  color: black;
+  text-decoration: none;
+  transition: color 200ms ease-in-out;
 }
 
 .collapse_message .collapse-link {
@@ -314,6 +320,8 @@ span {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: absolute;
+  width: 100%;
 }
 
 .remarks p {
