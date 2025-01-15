@@ -9,6 +9,8 @@ const searchMeal = async (e) => {
   const ingredients_output = document.querySelector(".ingredients");
   const error_container = document.querySelector("#error_message");
   const errorMessage = document.querySelector(".message");
+  const prev = document.querySelector("#prev");
+  const next = document.querySelector("#next");
 
   //clear error on input
   input.addEventListener("input", () => {
@@ -21,18 +23,24 @@ const searchMeal = async (e) => {
   });
 
   //show meal to UI
-  const showMealInfo = (meal) => {
-    const { strMeal, strMealThumb, strInstructions } = meal;
+  let currentMeal = 0;
+
+  const showMealInfo = (meals) => {
+    console.log(currentMeal);
+
+    const { strMeal, strMealThumb, strInstructions } = meals[currentMeal];
     img.style.backgroundImage = `url(${strMealThumb})`;
     meal_name.textContent = strMeal;
     info.textContent = strInstructions;
+
+    // slide controls
 
     const ingredients = [];
 
     for (let i = 1; i <= 20; i++) {
       // Ingredient keys start from 1
-      const ingredient = meal[`strIngredient${i}`];
-      const measure = meal[`strMeasure${i}`];
+      const ingredient = meals[currentMeal][`strIngredient${i}`];
+      const measure = meals[currentMeal][`strMeasure${i}`];
 
       if (ingredient) {
         ingredients.push(`${ingredient} - ${measure}`);
@@ -62,6 +70,7 @@ const searchMeal = async (e) => {
 
       const { meals } = await response.json();
       error_container.classList.remove("active");
+      console.log(meals);
       return meals;
     } catch (error) {
       error_container.classList.add("active");
@@ -87,7 +96,28 @@ const searchMeal = async (e) => {
       return;
     }
 
-    meals.forEach(showMealInfo);
+    showMealInfo(meals);
+
+    //slides controls
+    next.addEventListener("click", () => {
+      if (currentMeal < meals.length - 1) {
+        currentMeal++;
+      } else {
+        currentMeal = 0;
+      }
+
+      showMealInfo(meals);
+    });
+
+    prev.addEventListener("click", () => {
+      if (currentMeal > 0) {
+        currentMeal--;
+      } else {
+        currentMeal = meals.length - 1;
+      }
+
+      showMealInfo(meals);
+    });
   } else {
     error_container.classList.add("active");
     errorMessage.textContent = "PLEASE SEARCH FOR A MEAL :)";
