@@ -240,6 +240,13 @@ main {
   height: 350px;
   border-radius: 50%;
   border: 3px solid #ffa31a;
+  transform: scale(1);
+  cursor: pointer;
+  transition: transform 300ms ease-in-out;
+}
+
+.img:hover {
+  transform: scale(1.1);
 }
 
 .meal_info {
